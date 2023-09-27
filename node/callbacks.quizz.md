@@ -8,7 +8,7 @@ Make it run without errors but you cannot change the location of the `let` state
 function doAsyncTask(cb) {
   cb();
 }
-doAsyncTask(_ => console.log(message));
+doAsyncTask((_) => console.log(message));
 
 let message = "Callback Called";
 ```
@@ -26,7 +26,7 @@ function readFileThenDo(next) {
   });
 }
 
-readFileThenDo(data => {
+readFileThenDo((data) => {
   console.log(data);
 });
 ```
@@ -39,13 +39,17 @@ Instead of passing it up the stack throw it instead and try to catch it later on
 const fs = require("fs");
 
 function readFileThenDo(next) {
-  fs.readFile("./blah.nofile", (err, data) => {
-    if (err) throw err;
-    next(data);
-  });
+    fs.readFile("./blah.nofile", (err, data) => {
+        if (err) throw err};
+        next(data);
+    });
 }
 // Hint use try..catch
-readFileThenDo(data => {
-  console.log(data);
-});
+try {
+    readFileThenDo((data) => {
+        console.log(data);
+    });
+} catch (err) {
+    conosle.error(err);
+}
 ```
